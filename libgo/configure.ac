@@ -239,10 +239,10 @@ AC_SUBST(USE_DEJAGNU)
 #   - libgo/go/syscall/endian_XX.go
 #   - possibly others
 # - possibly update files in libgo/go/internal/syscall/unix
-ALLGOARCH="386 alpha amd64 amd64p32 arm armbe arm64 arm64be ia64 m68k mips mipsle mips64 mips64le mips64p32 mips64p32le nios2 ppc ppc64 ppc64le riscv riscv64 s390 s390x sh shbe sparc sparc64 wasm"
+ALLGOARCH="386 alpha amd64 amd64p32 arm armbe arm64 arm64be hppa ia64 m68k mips mipsle mips64 mips64le mips64p32 mips64p32le nios2 ppc ppc64 ppc64le riscv riscv64 s390 s390x sh shbe sparc sparc64 wasm"
 
 # All known GOARCH family values.
-ALLGOARCHFAMILY="I386 ALPHA AMD64 ARM ARM64 IA64 M68K MIPS MIPS64 NIOS2 PPC PPC64 RISCV RISCV64 S390 S390X SH SPARC SPARC64 WASM"
+ALLGOARCHFAMILY="I386 ALPHA AMD64 ARM ARM64 HPPA IA64 M68K MIPS MIPS64 NIOS2 PPC PPC64 RISCV RISCV64 S390 S390X SH SPARC SPARC64 WASM"
 
 GOARCH=unknown
 case ${host} in
@@ -262,6 +262,9 @@ case ${host} in
 	GOARCH=armbe
 	;;
     esac
+    ;;
+  hppa*-*-*)
+    GOARCH=hppa
     ;;
 changequote(,)dnl
   i[34567]86-*-* | x86_64-*-*)

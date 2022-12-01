@@ -88,6 +88,16 @@ case $goarch in
 		;;
 	esac
 	;;
+    hppa)
+	bigendian=true
+	defaultphyspagesize=4096
+	family=HPPA
+	int64align=8
+	minframesize=64
+	pcquantum=4
+	ptrsize=4
+	stackalign=64
+	;;
     ia64)
 	family=IA64
 	cachelinesize=128

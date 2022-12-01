@@ -180,6 +180,9 @@ proc go-set-goarch { } {
 	"xscale-*-*" {
 	    set goarch "arm"
 	}
+	"hppa*-*-*" {
+	    set goarch "hppa"
+	}
 	"i?86-*-*" -
 	"x86_64-*-*" {
 	    if [check_effective_target_ia32] {
