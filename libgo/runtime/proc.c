@@ -44,7 +44,7 @@ extern void __splitstack_block_signals_context (void *context[10], int *,
 #endif
 
 #ifndef PTHREAD_STACK_MIN
-# define PTHREAD_STACK_MIN 8192
+# define PTHREAD_STACK_MIN (4*8192)
 #endif
 
 #if defined(USING_SPLIT_STACK) && defined(LINKER_SUPPORTS_SPLIT_STACK)
@@ -326,7 +326,7 @@ runtime_mcall(FuncVal *fv)
 #else
 		// We have to point to an address on the stack that is
 		// below the saved registers.
-		gp->gcnextsp = (uintptr)(&afterregs);
+		gp->gcnextsp = (uintptr)(&afterregs);   // XXXXXX
 		gp->gcnextsp2 = (uintptr)(secondary_stack_pointer());
 #endif
 		gp->fromgogo = false;
@@ -567,7 +567,7 @@ runtime_mstart(void *arg)
 	// Setting gcstacksize to 0 is a marker meaning that gcinitialsp
 	// is the top of the stack, not the bottom.
 	gp->gcstacksize = 0;
-	gp->gcnextsp = (uintptr)(&arg);
+	gp->gcnextsp = (uintptr)(&arg); // XXX
 	gp->gcinitialsp2 = secondary_stack_pointer();
 	gp->gcnextsp2 = (uintptr)(gp->gcinitialsp2);
 #endif
@@ -648,7 +648,7 @@ setGContext(void)
 	gp->gcinitialsp = &val;
 	gp->gcstack = 0;
 	gp->gcstacksize = 0;
-	gp->gcnextsp = (uintptr)(&val);
+	gp->gcnextsp = (uintptr)(&val);	// XXX
 	gp->gcinitialsp2 = secondary_stack_pointer();
 	gp->gcnextsp2 = (uintptr)(gp->gcinitialsp2);
 #endif
@@ -727,7 +727,7 @@ doentersyscall(uintptr pc, uintptr sp)
 	{
 		void *v;
 
-		g->gcnextsp = (uintptr)(&v);
+		g->gcnextsp = (uintptr)(&v); // XXX
 		g->gcnextsp2 = (uintptr)(secondary_stack_pointer());
 	}
 #endif
@@ -769,7 +769,7 @@ doentersyscallblock(uintptr pc, uintptr sp)
 	{
 		void *v;
 
-		g->gcnextsp = (uintptr)(&v);
+		g->gcnextsp = (uintptr)(&v);	// XXXX
 		g->gcnextsp2 = (uintptr)(secondary_stack_pointer());
 	}
 #endif
@@ -884,7 +884,7 @@ resetNewG(G *newg, void **sp, uintptr *spsize)
   *spsize = newg->gcstacksize;
   if(*spsize == 0)
     runtime_throw("bad spsize in resetNewG");
-  newg->gcnextsp = (uintptr)(*sp);
+  newg->gcnextsp = (uintptr)(*sp); // XXX
   newg->gcnextsp2 = (uintptr)(newg->gcinitialsp2);
 #endif
 }

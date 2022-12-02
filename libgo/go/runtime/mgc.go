@@ -1695,7 +1695,7 @@ func gcTestPointerClass(p unsafe.Pointer) string {
 		return "heap"
 	}
 	bss := getBSS()
-	if p2 >= getText() && p2 < bss {
+	if p2 >= getText() && p2 < bss {  // Text, data, bss ...
 		return "data"
 	}
 	if p2 >= bss && p2 < getEnd() {

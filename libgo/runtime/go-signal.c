@@ -260,6 +260,8 @@ getSiginfo(siginfo_t *info, void *context __attribute__((unused)))
 	ret.sigpc = ((ucontext_t*)(context))->uc_mcontext.jmp_context.iar;
 #elif defined(__aarch64__) && defined(__linux__)
 	ret.sigpc = ((ucontext_t*)(context))->uc_mcontext.pc;
+#elif defined(__hppa__) && defined(__linux__)
+	ret.sigpc = ((ucontext_t*)(context))->uc_mcontext.sc_iaoq[0];
 #elif defined(__NetBSD__)
 	ret.sigpc = _UC_MACHINE_PC(((ucontext_t*)(context)));
 #endif
@@ -422,6 +424,13 @@ dumpregs(siginfo_t *info __attribute__((unused)), void *context __attribute__((u
 		runtime_printf("sp     %X\n", m->sp);
 		runtime_printf("pc     %X\n", m->pc);
 		runtime_printf("pstate %X\n", m->pstate);
+	  }
+#elif defined(__hppa__) && defined(__linux__)
+	  {
+		int i;
+// #warning "TODO !!!"
+		for (i = 0; i < 31; i++)
+			runtime_printf("x%d    %X\n", i, i);
 	  }
 #endif
 }

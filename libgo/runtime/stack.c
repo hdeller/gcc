@@ -112,9 +112,9 @@ static bool doscanstack1(G *gp, void *gcw) {
 	}
 	top = (byte*)(void*)(gp->gcinitialsp) + gp->gcstacksize;
 	if(top > bottom)
-		scanstackblock((uintptr)(bottom), (uintptr)(top - bottom), gcw);
+		scanstackblock((uintptr)(bottom), (uintptr)(top - bottom), gcw); // // FIXME low-> high
 	else
-		scanstackblock((uintptr)(top), (uintptr)(bottom - top), gcw);
+		scanstackblock((uintptr)(top), (uintptr)(bottom - top), gcw);// FIXME low-> high
 	if (nextsp2 != nil) {
 		initialsp2 = (byte*)(void*)(gp->gcinitialsp2);
 		if(initialsp2 > nextsp2)
